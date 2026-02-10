@@ -13,7 +13,7 @@ interface LeaderboardItem {
 }
 
 const ALL_SHOPPERS_DATA: LeaderboardItem[] = [
-  { rank: 1, name: 'Naledi', badge: 'Rising star', orders: 369, avatar: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=200&auto=format&fit=crop' },
+  { rank: 1, name: 'Naledi', badge: 'Rising star', orders: 369, avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop' },
   { rank: 2, name: 'Katleho', badge: 'Superstar', orders: 342, avatar: 'https://images.unsplash.com/photo-1523824921871-d6f1a15151f1?q=80&w=200&auto=format&fit=crop' },
   { rank: 3, name: 'John', badge: 'Rising star', orders: 310, avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop' },
   { rank: 4, name: 'Brian', badge: 'Rising star', orders: 285, avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop' },
@@ -23,7 +23,7 @@ const ALL_SHOPPERS_DATA: LeaderboardItem[] = [
 ];
 
 const YOUR_GROUP_DATA: LeaderboardItem[] = [
-  { rank: 1, name: 'Palesa', badge: 'Rising star', orders: 45, avatar: 'https://i.pravatar.cc/150?u=palesa' },
+  { rank: 1, name: 'Buhle', badge: 'Rising star', orders: 45, avatar: 'https://i.pravatar.cc/150?u=buhle' },
   { rank: 2, name: 'Sipho', badge: 'Superstar', orders: 42, avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop' },
   { rank: 3, name: 'Tumi', badge: 'Rising star', orders: 38, avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop' },
   { rank: 4, name: 'Lebo', badge: 'Rising star', orders: 36, avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=200&auto=format&fit=crop' },
@@ -143,9 +143,9 @@ const Leaderboard: React.FC = () => {
               </div>
               <span className="text-[15px] font-black text-gray-900">{userRankValue}</span>
             </div>
-            <img src="https://i.pravatar.cc/150?u=me" className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm" alt="" />
+            <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=300&auto=format&fit=crop" className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm" alt="" />
             <div>
-              <p className="text-[15px] font-black text-gray-900 leading-tight">Jane Doe <span className="text-gray-400 font-bold">(You)</span></p>
+              <p className="text-[15px] font-black text-gray-900 leading-tight">Palesa <span className="text-gray-400 font-bold">(You)</span></p>
               <p className="text-[12px] text-gray-400 font-bold">Rising star</p>
             </div>
           </div>

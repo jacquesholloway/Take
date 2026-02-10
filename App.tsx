@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Screen } from './types';
 import BottomNav from './components/BottomNav';
 import Dashboard from './screens/Dashboard';
@@ -131,7 +131,7 @@ const INITIAL_ORDERS = [
         price: 8999,
         commission: 224.97,
         status: ['Paid', 'Processing'],
-        image: 'https://images.unsplash.com/photo-1546868871-70ca48370afd?q=80&w=400&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1546868871-70ca48370afd?q=80&w=200&auto=format&fit=crop',
         assignedClientId: 8
       },
       {
@@ -219,11 +219,9 @@ const INITIAL_ORDERS = [
 ];
 
 const App: React.FC = () => {
-  // Start on Dashboard (Home) screen
   const [currentScreen, setCurrentScreen] = useState<Screen>(Screen.DASHBOARD);
   const [activeTab, setActiveTab] = useState<'Clients' | 'Orders'>('Clients');
   const [feedActiveTab, setFeedActiveTab] = useState<'Deals' | 'Join in'>('Deals');
-  // Re-initialized with preloaded data
   const [clients, setClients] = useState<any[]>(PRELOADED_CLIENTS); 
   const [orders, setOrders] = useState<any[]>(INITIAL_ORDERS);
   const [selectedClientIndex, setSelectedClientIndex] = useState<number | null>(null);
@@ -233,11 +231,14 @@ const App: React.FC = () => {
   const [pendingAssignment, setPendingAssignment] = useState<{ orderId: string, itemId: string } | null>(null);
   const [salesGoal, setSalesGoal] = useState(2500);
   const [showSettings, setShowSettings] = useState(false);
-  const [selectedMonthIdx, setSelectedMonthIdx] = useState(0); // 0 = Dec, 1 = Nov, etc.
-
-  // Filter states for OrdersLanding lifted to App
+  const [selectedMonthIdx, setSelectedMonthIdx] = useState(0); 
   const [ordersFilterClientId, setOrdersFilterClientId] = useState<number | null>(null);
   const [ordersFilterUnassigned, setOrdersFilterUnassigned] = useState(true);
+
+  // Auto-scroll to top on any navigation or state change that alters the view
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [currentScreen, activeTab, feedActiveTab, selectedClientIndex, selectedDeal, selectedJoinIn, showSettings]);
 
   const unassignedCount = useMemo(() => {
     return orders.reduce((acc, order) => {
@@ -261,7 +262,6 @@ const App: React.FC = () => {
       setShowSettings(false);
     }
     setToastMessage(null);
-    window.scrollTo(0, 0); 
   };
 
   const showToast = (message: string) => {
@@ -356,7 +356,6 @@ const App: React.FC = () => {
     setOrdersFilterUnassigned(false);
     setActiveTab('Orders');
     setCurrentScreen(Screen.CLIENTS_ROOT);
-    window.scrollTo(0, 0);
   };
 
   const renderScreen = () => {
@@ -373,6 +372,10 @@ const App: React.FC = () => {
             salesGoal={salesGoal}
             onUpdateSalesGoal={setSalesGoal}
             onNavigate={handleNavigate}
+            onNavigateToFeed={(tab) => {
+              setFeedActiveTab(tab);
+              setCurrentScreen(Screen.FEED);
+            }}
             onNavigateToUnassigned={() => {
               setActiveTab('Orders');
               setCurrentScreen(Screen.CLIENTS_ROOT);

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { X, Share2, Download, ExternalLink, Play } from 'lucide-react';
 
@@ -84,16 +83,6 @@ const JoinInDetail: React.FC<JoinInDetailProps> = ({ post, onClose }) => {
           </div>
         </div>
 
-        {/* Details Section */}
-        {post.details && (
-          <div className="mb-10">
-            <h4 className="text-[17px] font-black text-gray-900 mb-3">Details</h4>
-            <p className="text-[15px] text-gray-700 leading-relaxed">
-              {post.details}
-            </p>
-          </div>
-        )}
-
         {/* Link Section */}
         {post.link && (
           <div className="mb-12">
@@ -142,6 +131,14 @@ const JoinInDetail: React.FC<JoinInDetailProps> = ({ post, onClose }) => {
             </div>
           </div>
         )}
+
+        {/* Details Section (Restyled as requested) */}
+        <div className="pt-8 border-t border-gray-100 mb-8">
+          <h4 className="text-[15px] font-black text-gray-900 mb-4">Details</h4>
+          <p className="text-[14px] text-gray-500 leading-relaxed font-medium">
+            {post.details || "Spend more than R1500 on a single order and post a photo on instagram tagging Takealot in the photo."}
+          </p>
+        </div>
 
         {/* Terms & Conditions Section */}
         <div className="pt-8 border-t border-gray-100">

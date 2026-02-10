@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { Play, Share2, ArrowUpDown, Flame, Ticket, MoreHorizontal, Calendar, Trophy, Info, Plus, Mail, Upload } from 'lucide-react';
 
@@ -133,6 +132,8 @@ const MOCK_JOIN_IN: JoinInPost[] = [
     image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=400&auto=format&fit=crop',
     createdAt: 1733300000000,
     expiringSoon: false,
+    details: 'Spend more than R1500 on a single order and post a photo on instagram tagging Takealot in the photo.',
+    terms: 'Winner will be announced via DM on 20 Sept. Account must be public for entry to be valid.'
   },
   {
     id: 'j2',
@@ -142,6 +143,7 @@ const MOCK_JOIN_IN: JoinInPost[] = [
     image: 'https://images.unsplash.com/photo-1514525253361-bee8718a74a2?q=80&w=400&auto=format&fit=crop',
     expiringSoon: true,
     createdAt: 1733200000000,
+    details: 'Join us live as we showcase the best Heritage Day deals and host exclusive giveaways for active viewers.',
   },
   {
     id: 'j3',
@@ -150,6 +152,8 @@ const MOCK_JOIN_IN: JoinInPost[] = [
     dateLabel: '20 Oct, 09:00 - 18:00',
     image: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=400&auto=format&fit=crop',
     createdAt: 1733100000000,
+    details: 'Place an order with the most unique assortment of items this Sunday to win a R5000 voucher.',
+    terms: 'Uniqueness is determined by the community management team based on item categories.'
   },
   {
     id: 'j4',
@@ -158,6 +162,7 @@ const MOCK_JOIN_IN: JoinInPost[] = [
     dateLabel: '14 - 20 Oct',
     image: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=400&auto=format&fit=crop',
     createdAt: 1733000000000,
+    details: 'An exclusive invitation to our VIP launch of the House of Beauty collection. RSVP required.',
   },
   {
     id: 'j5',
@@ -166,6 +171,7 @@ const MOCK_JOIN_IN: JoinInPost[] = [
     dateLabel: '25 Oct, 14:00',
     image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=400&auto=format&fit=crop',
     createdAt: 1732900000000,
+    details: 'Meet other personal shoppers in the Cape Town area for a day of networking and strategy sharing.',
   }
 ];
 

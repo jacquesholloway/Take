@@ -11,6 +11,7 @@ interface DashboardProps {
   salesGoal: number;
   onUpdateSalesGoal: (goal: number) => void;
   onNavigate: (screen: Screen) => void;
+  onNavigateToFeed?: (tab: 'Deals' | 'Join in') => void;
 }
 
 const TierIcon = () => (
@@ -21,13 +22,13 @@ const TierIcon = () => (
 
 const ALL_SHOPPERS_PODIUM = [
   { name: 'Katleho', rank: 2, badge: 'Superstar', orders: 128, avatar: 'https://i.pravatar.cc/150?u=kat' },
-  { name: 'Naledi', rank: 1, badge: 'Rising star', orders: 131, avatar: 'https://i.pravatar.cc/150?u=naledi' },
+  { name: 'Naledi', rank: 1, badge: 'Rising star', orders: 131, avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop' },
   { name: 'John', rank: 3, badge: 'Rising star', orders: 98, avatar: 'https://i.pravatar.cc/150?u=john' },
 ];
 
 const YOUR_GROUP_PODIUM = [
   { name: 'Sipho', rank: 2, badge: 'Superstar', orders: 42, avatar: 'https://i.pravatar.cc/150?u=sipho' },
-  { name: 'Palesa', rank: 1, badge: 'Rising star', orders: 45, avatar: 'https://i.pravatar.cc/150?u=palesa' },
+  { name: 'Buhle', rank: 1, badge: 'Rising star', orders: 45, avatar: 'https://i.pravatar.cc/150?u=buhle' },
   { name: 'Tumi', rank: 3, badge: 'Rising star', orders: 38, avatar: 'https://i.pravatar.cc/150?u=tumi' },
 ];
 
@@ -38,7 +39,8 @@ const Dashboard: React.FC<DashboardProps> = ({
   unassignedCount,
   salesGoal,
   onUpdateSalesGoal,
-  onNavigate
+  onNavigate,
+  onNavigateToFeed
 }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [tempGoal, setTempGoal] = useState(salesGoal.toString());
@@ -141,10 +143,13 @@ const Dashboard: React.FC<DashboardProps> = ({
             <div className="w-5 h-5 rounded-full bg-[#56D69E] flex items-center justify-center text-white">
               <Plus size={14} strokeWidth={4} />
             </div>
-            <span className="text-[14px] font-black">± R 2,500.00 vs. Sep</span>
+            <span className="text-[14px] font-black">± R 150.99 vs. Sep</span>
           </div>
 
-          <button className="bg-white text-[#0047FF] px-10 py-3.5 rounded-full text-[15px] font-black active:scale-95 transition-all shadow-xl">
+          <button 
+            onClick={() => onNavigate(Screen.ME)}
+            className="bg-white text-[#0047FF] px-10 py-3.5 rounded-full text-[15px] font-black active:scale-95 transition-all shadow-xl"
+          >
             See more
           </button>
         </div>
@@ -185,7 +190,7 @@ const Dashboard: React.FC<DashboardProps> = ({
           <div className="mt-6 flex items-start space-x-3 bg-blue-50/50 p-4 rounded-xl border border-blue-50">
             <div className="mt-0.5"><Bell size={16} className="text-[#0047FF]" /></div>
             <p className="text-[12px] text-gray-900 font-medium leading-relaxed">
-              Only <span className="font-black">R{(salesGoal - 1250 > 0 ? salesGoal - 1250 : 0).toLocaleString()}</span> away from hitting your sales goal. Keep going Jane!
+              Only <span className="font-black">R{(salesGoal - 1250 > 0 ? salesGoal - 1250 : 0).toLocaleString()}</span> away from hitting your sales goal. Keep going Palesa!
             </p>
           </div>
         </div>
@@ -210,14 +215,17 @@ const Dashboard: React.FC<DashboardProps> = ({
             {unassignedCount > 0 ? (
               <div className="w-full bg-[#0047FF] text-white py-3.5 rounded-xl font-black text-[14px] flex items-center justify-center space-x-2 shadow-lg shadow-blue-100">
                 <div className="w-2 h-2 bg-red-500 rounded-full" />
-                <span>{unassignedCount} unassigned</span>
+                <span>View {unassignedCount} unassigned</span>
               </div>
             ) : (
               <p className="text-[15px] font-black text-gray-900 leading-tight">All items assigned 🎉</p>
             )}
           </button>
 
-          <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <button 
+            onClick={() => onNavigate(Screen.CLIENTS_ROOT)}
+            className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-left transition-all active:scale-[0.99] focus:outline-none"
+          >
             <div className="flex justify-between items-center mb-4">
               <div className="w-10 h-10 bg-[#E8F0FE] rounded-full flex items-center justify-center text-[#0047FF]">
                 <Users size={20} strokeWidth={2.5} />
@@ -226,16 +234,19 @@ const Dashboard: React.FC<DashboardProps> = ({
             </div>
             <p className="text-[12px] text-gray-500 font-bold tracking-tight mb-1">Clients</p>
             <h4 className="text-[22px] font-black text-gray-900 mb-4">{totalClients}</h4>
-            <button 
-              onClick={onAddClient}
-              className="bg-[#0047FF] text-white px-4 py-2 rounded-lg font-bold text-[13px] flex items-center space-x-1.5 focus:outline-none active:scale-95 transition-all"
+            <div 
+              onClick={(e) => { e.stopPropagation(); onAddClient(); }}
+              className="bg-[#0047FF] text-white px-4 py-2 rounded-lg font-bold text-[13px] inline-flex items-center space-x-1.5 focus:outline-none active:scale-95 transition-all"
             >
               <Plus size={14} strokeWidth={3} />
               <span>Add client</span>
-            </button>
-          </div>
+            </div>
+          </button>
 
-          <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <button 
+            onClick={() => onNavigateToFeed?.('Deals')}
+            className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-left transition-all active:scale-[0.99] focus:outline-none"
+          >
             <div className="flex justify-between items-center mb-4">
               <div className="w-10 h-10 bg-[#E8F0FE] rounded-full flex items-center justify-center text-[#0047FF]">
                 <Tag size={20} strokeWidth={2.5} />
@@ -245,9 +256,12 @@ const Dashboard: React.FC<DashboardProps> = ({
             <p className="text-[12px] text-gray-500 font-bold tracking-tight mb-1">Deals</p>
             <h4 className="text-[22px] font-black text-gray-900 mb-4">32</h4>
             <span className="text-[#0047FF] text-[13px] font-bold">3 New</span>
-          </div>
+          </button>
 
-          <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <button 
+            onClick={() => onNavigateToFeed?.('Join in')}
+            className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-left transition-all active:scale-[0.99] focus:outline-none"
+          >
             <div className="flex justify-between items-center mb-4">
               <div className="w-10 h-10 bg-[#E8F0FE] rounded-full flex items-center justify-center text-[#0047FF]">
                 <Calendar size={20} strokeWidth={2.5} />
@@ -257,9 +271,12 @@ const Dashboard: React.FC<DashboardProps> = ({
             <p className="text-[12px] text-gray-500 font-bold tracking-tight mb-1">Events</p>
             <h4 className="text-[22px] font-black text-gray-900 mb-4">12</h4>
             <span className="text-[#0047FF] text-[13px] font-bold">3 New</span>
-          </div>
+          </button>
 
-          <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <button 
+            onClick={() => onNavigateToFeed?.('Join in')}
+            className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-left transition-all active:scale-[0.99] focus:outline-none"
+          >
             <div className="flex justify-between items-center mb-4">
               <div className="w-10 h-10 bg-[#E8F0FE] rounded-full flex items-center justify-center text-[#0047FF]">
                 <Trophy size={20} strokeWidth={2.5} />
@@ -268,7 +285,7 @@ const Dashboard: React.FC<DashboardProps> = ({
             </div>
             <p className="text-[12px] text-gray-500 font-bold tracking-tight mb-1">Competitions</p>
             <h4 className="text-[22px] font-black text-gray-900">15</h4>
-          </div>
+          </button>
         </div>
 
         {/* Tier Progression */}
@@ -406,9 +423,9 @@ const Dashboard: React.FC<DashboardProps> = ({
                   <span className="text-[11px] font-black text-gray-400">{userRank}</span>
                 </div>
               </div>
-              <img src="https://i.pravatar.cc/150?u=me" className="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm" alt="" />
+              <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=300&auto=format&fit=crop" className="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm" alt="" />
               <div>
-                <p className="text-[14px] font-black text-gray-900 leading-tight">Jane Doe <span className="text-gray-400">(You)</span></p>
+                <p className="text-[14px] font-black text-gray-900 leading-tight">Palesa <span className="text-gray-400">(You)</span></p>
                 <p className="text-[11px] text-gray-500 font-bold">Rising star</p>
               </div>
             </div>
